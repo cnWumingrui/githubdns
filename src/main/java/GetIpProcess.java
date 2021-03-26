@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Test {
+/**
+ * @author Raye
+ */
+public class GetIpProcess {
 
     public static void main(String[] args) {
         ArrayList<String> result = new ArrayList<>();
