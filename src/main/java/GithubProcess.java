@@ -43,9 +43,9 @@ public class GithubProcess {
         //remove same links
         Set<String> stringSet = new HashSet<>();
 
-        // 1. 创建一个HTTPClient对象
+        // 1. create HTTPClient Object
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        // 2. 设置URL遍历
+        // 2. foreach GITHUB_URL_LIST
         GITHUB_URL_LIST.forEach(url -> {
             String domain = "";
             String[] splits = url.split("\\.");
@@ -57,19 +57,19 @@ public class GithubProcess {
                     domain += splits[i];
                 }
             }
-            // 3. 生成get请求
+            // 3. generated GET request
             // 模板： https://githubusercontent.com.ipaddress.com/camo.githubusercontent.com
             String getUrl = "https://" + domain + ".ipaddress.com/" + url;
             HttpGet httpGet = new HttpGet(getUrl);
             try {
-                // 4. 执行得到返回结果
+                // 4. process request and got the response
                 CloseableHttpResponse response = httpClient.execute(httpGet);
-                // 5. 解析
+                // 5. analysis
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     String html = EntityUtils.toString(response.getEntity(), "utf-8");
-                    // 6. 使用jsoup解析
+                    // 6. analysis by Jsoup
                     Document document = Jsoup.parse(html);
-                    // 7. 获取链接
+                    // 7. get Jsoup result's url
                     Elements linkes = document.select("a[href]");
                     for (Element link : linkes) {
                         if (link.toString().contains("https://www.ipaddress.com/ipv4/")) {

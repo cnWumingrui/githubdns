@@ -25,7 +25,7 @@ public class HostsReplace {
      * init system hosts local file path
      */
     public static void init() {
-        // 判断系统
+        // chosen system
         if ("linux".equalsIgnoreCase(System.getProperty("os.name"))) {
             HOSTS_PATH = Paths.get("/etc/hosts");
         } else {
