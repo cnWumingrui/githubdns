@@ -88,6 +88,8 @@ public class GetIpProcess {
 
         resultList.forEach(data -> System.out.println(data));
 
+        // refresh DNS windows like win+R -> cmd -> ipconfig/flushdns
+
     }
 
 }
