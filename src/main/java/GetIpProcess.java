@@ -12,7 +12,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Raye
@@ -20,16 +22,17 @@ import java.util.List;
 public class GetIpProcess {
 
     public static void main(String[] args) {
+
         ArrayList<String> result = new ArrayList<>();
         // 1. 创建一个HTTPClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 2. 设置URL遍历
         List<String> urls = Arrays.asList(
+                "www.github.com",
                 "github.githubassets.com",
                 "camo.githubusercontent.com",
                 "github.map.fastly.net",
                 "github.global.ssl.fastly.net",
-                "github.com",
                 "api.github.com",
                 "raw.githubusercontent.com",
                 "user-images.githubusercontent.com",
@@ -70,7 +73,21 @@ public class GetIpProcess {
                 e.printStackTrace();
             }
         });
-        result.forEach(r -> System.out.println(r));
+
+        //remove same links
+
+        Set<String> stringSet = new HashSet<>();
+
+        List<String> resultList = new ArrayList<>();
+
+        result.forEach(data -> {
+            if (stringSet.add(data)) {
+                resultList.add(data);
+            }
+        });
+
+        resultList.forEach(data -> System.out.println(data));
+
     }
 
 }
