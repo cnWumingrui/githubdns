@@ -32,7 +32,6 @@ public class GetIpProcess {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 2. 设置URL遍历
         List<String> urls = Arrays.asList(
-                "www.github.com",
                 "github.githubassets.com",
                 "camo.githubusercontent.com",
                 "github.map.fastly.net",
