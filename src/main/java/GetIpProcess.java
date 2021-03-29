@@ -24,6 +24,10 @@ public class GetIpProcess {
     public static void main(String[] args) {
 
         ArrayList<String> result = new ArrayList<>();
+
+        //remove same links
+        Set<String> stringSet = new HashSet<>();
+
         // 1. 创建一个HTTPClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 2. 设置URL遍历
@@ -65,7 +69,9 @@ public class GetIpProcess {
                     for (Element link : linkes) {
                         if (link.toString().contains("https://www.ipaddress.com/ipv4/")) {
                             String res = link.text() + " " + url;
-                            result.add(res);
+                            if (stringSet.add(res)) {
+                                result.add(res);
+                            }
                         }
                     }
                 }
@@ -74,19 +80,7 @@ public class GetIpProcess {
             }
         });
 
-        //remove same links
-
-        Set<String> stringSet = new HashSet<>();
-
-        List<String> resultList = new ArrayList<>();
-
-        result.forEach(data -> {
-            if (stringSet.add(data)) {
-                resultList.add(data);
-            }
-        });
-
-        resultList.forEach(data -> System.out.println(data));
+        result.forEach(data -> System.out.println(data));
 
         // refresh DNS windows like win+R -> cmd -> ipconfig/flushdns
 
