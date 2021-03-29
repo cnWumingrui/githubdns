@@ -6,6 +6,11 @@ import java.util.List;
  */
 public class GetIpProcess {
 
+    /**
+     * TODO: remove overdue dns url
+     *
+     * @param args args
+     */
     public static void main(String[] args) {
 
         List<String> result = GithubProcess.getGithubDnsResult();
@@ -19,8 +24,6 @@ public class GetIpProcess {
                 e.printStackTrace();
             }
         });
-
-        // refresh DNS windows like win+R -> cmd -> ipconfig/flushdns
 
     }
 

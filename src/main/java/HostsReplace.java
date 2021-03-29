@@ -21,6 +21,9 @@ public class HostsReplace {
 
     private static final String WINDOWS_FLUSH_DNS_CMD = "ipconfig/flushdns";
 
+    /**
+     * init system hosts local file path
+     */
     public static void init() {
         // 判断系统
         if ("linux".equalsIgnoreCase(System.getProperty("os.name"))) {
@@ -30,6 +33,12 @@ public class HostsReplace {
         }
     }
 
+    /**
+     * get exists dns
+     *
+     * @return hosts exists dns data
+     * @throws IOException IOException
+     */
     public static Set<String> read() throws IOException {
         init();
         return Arrays.stream(Files.readAllLines(HOSTS_PATH).toArray())
@@ -38,6 +47,12 @@ public class HostsReplace {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * append hosts file dns ip
+     *
+     * @param in input dns ip
+     * @throws IOException IOException
+     */
     public static void append(String in) throws IOException {
         init();
         try {
@@ -48,10 +63,22 @@ public class HostsReplace {
         flushDns();
     }
 
+    /**
+     * judge dns ip exists
+     *
+     * @param in input dns ip
+     * @return boolean
+     * @throws IOException IOException
+     */
     public static boolean exists(String in) throws IOException {
         return read().contains(in);
     }
 
+    /**
+     * refresh DNS windows like win+R -> cmd -> ipconfig/flushdns
+     *
+     * @throws IOException IOException
+     */
     public static void flushDns() throws IOException {
         try {
             Runtime.getRuntime().exec(WINDOWS_FLUSH_DNS_CMD);
