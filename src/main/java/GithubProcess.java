@@ -23,6 +23,7 @@ import java.util.Set;
 public class GithubProcess {
 
     private static final List<String> GITHUB_URL_LIST = Arrays.asList(
+            "www.github.com",
             "github.githubassets.com",
             "camo.githubusercontent.com",
             "github.map.fastly.net",
