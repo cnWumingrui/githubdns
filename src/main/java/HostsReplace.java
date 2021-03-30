@@ -17,6 +17,8 @@ public class HostsReplace {
 
     private static Path HOSTS_PATH;
 
+    private static String SYSTEM;
+
     private static final String END = String.format("%n");
 
     private static final String WINDOWS_FLUSH_DNS_CMD = "ipconfig/flushdns";
@@ -28,8 +30,10 @@ public class HostsReplace {
         // chosen system
         if ("linux".equalsIgnoreCase(System.getProperty("os.name"))) {
             HOSTS_PATH = Paths.get("/etc/hosts");
+            SYSTEM = "LINUX";
         } else {
             HOSTS_PATH = Paths.get("C://WINDOWS//system32//drivers//etc//hosts");
+            SYSTEM = "WINDOWS";
         }
     }
 
@@ -81,7 +85,9 @@ public class HostsReplace {
      */
     public static void flushDns() throws IOException {
         try {
-            Runtime.getRuntime().exec(WINDOWS_FLUSH_DNS_CMD);
+            if ("WINDOWS".equals(SYSTEM)) {
+                Runtime.getRuntime().exec(WINDOWS_FLUSH_DNS_CMD);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
